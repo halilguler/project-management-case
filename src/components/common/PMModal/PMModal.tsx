@@ -1,7 +1,7 @@
 import Modal from "react-bootstrap/Modal";
 import PMButton from "../PMButton/PMButton";
 
-type Props = {
+type PMModalProps = {
   size?: "sm" | "lg" | "xl";
   show: boolean;
   handleClose: () => void;
@@ -11,7 +11,7 @@ type Props = {
   backdrop?: "static" | true;
 };
 
-const PMModal = (props: Props) => {
+const PMModal = (props: PMModalProps) => {
   const {
     size,
     show,
@@ -35,8 +35,12 @@ const PMModal = (props: Props) => {
       </Modal.Header>
       <Modal.Body>{children}</Modal.Body>
       <Modal.Footer>
-        <PMButton variant="secondary" onClick={handleClose} text="Close" />
-        <PMButton variant="primary" text="Save" onClick={handleClick} />
+        <PMButton variant="secondary" onClick={handleClose}>
+          Close
+        </PMButton>
+        <PMButton variant="primary" onClick={handleClick}>
+          Save
+        </PMButton>
       </Modal.Footer>
     </Modal>
   );

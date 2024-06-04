@@ -1,20 +1,21 @@
 import Form from "react-bootstrap/Form";
 import { Col, Row } from "react-bootstrap";
-type Props = {
+type PMTextFieldProps = {
   as: typeof Col | typeof Row;
   controlId: string;
-  label: string;
+  label?: string;
   placeholder: string;
   type: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   className?: string;
   required?: boolean;
   disabled?: boolean;
   readOnly?: boolean;
 };
 
-const PMTextField = (props: Props) => {
+const PMTextField = (props: PMTextFieldProps) => {
   const {
     as,
     controlId,
@@ -23,6 +24,7 @@ const PMTextField = (props: Props) => {
     type,
     value,
     onChange,
+    onKeyDown,
     className,
     required,
     disabled,
@@ -30,12 +32,13 @@ const PMTextField = (props: Props) => {
   } = props;
   return (
     <Form.Group as={as} controlId={controlId}>
-      <Form.Label>{label}</Form.Label>
+      {label && <Form.Label>{label}</Form.Label>}
       <Form.Control
         type={type}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        onKeyDown={onKeyDown}
         className={className}
         required={required}
         disabled={disabled}

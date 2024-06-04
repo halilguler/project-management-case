@@ -1,6 +1,7 @@
+import React from "react";
 import { Button } from "react-bootstrap";
 
-type Props = {
+type PMButtonProps = {
   variant?:
     | "primary"
     | "secondary"
@@ -18,18 +19,17 @@ type Props = {
     | "outline-warning"
     | "outline-info"
     | "outline-light"
-    | "outline-dark"
-    | undefined;
-  text: string;
+    | "outline-dark";
+  children: string | React.ReactNode;
   onClick: () => void;
   className?: string;
 };
 
-const PMButton = (props: Props) => {
-  const { variant, text, onClick, className } = props;
+const PMButton = (props: PMButtonProps) => {
+  const { variant, children, onClick, className } = props;
   return (
     <Button variant={variant} onClick={onClick} className={className}>
-      {text}
+      {children}
     </Button>
   );
 };

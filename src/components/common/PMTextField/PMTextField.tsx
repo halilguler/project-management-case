@@ -9,6 +9,7 @@ type PMTextFieldProps = {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onBlur?: () => void;
   className?: string;
   required?: boolean;
   disabled?: boolean;
@@ -25,6 +26,7 @@ const PMTextField = (props: PMTextFieldProps) => {
     value,
     onChange,
     onKeyDown,
+    onBlur,
     className,
     required,
     disabled,
@@ -39,6 +41,7 @@ const PMTextField = (props: PMTextFieldProps) => {
         value={value}
         onChange={onChange}
         onKeyDown={onKeyDown}
+        onBlur={onBlur}
         className={className}
         required={required}
         disabled={disabled}

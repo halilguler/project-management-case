@@ -1,32 +1,54 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import PMCard from "../../components/common/PMCard/PMCard";
 import PMButton from "../../components/common/PMButton/PMButton";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 const Home = () => {
-  //   const [show, setShow] = React.useState(false);
-
-  const [columns, setColumns] = React.useState([
+  const [columns, setColumns] = React.useState<any>([
     {
-      id: 1,
+      id: "1",
       title: "TO DO",
+      tasks: [
+        {
+          id: "1",
+          content: "Task 1",
+        },
+        {
+          id: "2",
+          content: "Task 2",
+        },
+      ],
     },
     {
-      id: 2,
+      id: "2",
       title: "IN PROGRESS",
+      tasks: [
+        {
+          id: "3",
+          content: "Task 3",
+        },
+      ],
     },
     {
-      id: 3,
+      id: "3",
       title: "DONE",
+      tasks: [
+        {
+          id: "4",
+          content: "Task 4",
+        },
+      ],
     },
   ]);
 
-  const titleOnChange = (
+  const onTitleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     id: number
   ) => {
-    const newColumns = columns.map((column) => {
-      if (column.id === id) {
+    const newColumns = columns.map((column: any) => {
+      if (column.id === id.toString()) {
         return {
           ...column,
           title: e.target.value,
@@ -39,19 +61,39 @@ const Home = () => {
 
   const addColumn = () => {
     const newColumn = {
-      id: columns.length + 1,
+      id: (columns.length + 1).toString(),
       title: "New Column",
+      tasks: [],
     };
     setColumns([...columns, newColumn]);
   };
 
   const deleteColumn = (id: number) => {
-    const newColumns = columns.filter((column) => column.id !== id);
+    const newColumns = columns.filter(
+      (column: any) => column.id !== id.toString()
+    );
     setColumns(newColumns);
   };
 
-  //   const handleClose = () => setShow(false);
-  //   const handleShow = () => setShow(true);
+  const reorderDragAndDrop = (result: any) => {
+    if (!result.destination) {
+      return;
+    }
+    const newColumns = reorder(
+      columns,
+      result.source.index,
+      result.destination.index
+    );
+    setColumns(newColumns);
+  };
+
+  const reorder = (list: any, startIndex: number, endIndex: number) => {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+    return result;
+  };
+
   return (
     <Container
       fluid
@@ -60,57 +102,40 @@ const Home = () => {
         marginTop: "75px",
       }}
     >
-      <Row className="gx-2 bg-white" style={{
-        width: "max-content",
-      }}>
-        {columns.map((column) => (
-          <Col key={column.id}>
-            <PMCard
-              title={column.title}
-              key={column.id}
-              id={column.id}
-              titleOnChange={titleOnChange}
-              deleteColumn={deleteColumn}
-            />
+      <DragDropContext onDragEnd={reorderDragAndDrop}>
+        <Row
+          className="d-flex gx-2 bg-white"
+          style={{
+            width: "max-content",
+          }}
+        >
+          <Droppable droppableId={"all-columns"} direction="horizontal">
+            {(provider) => (
+              <Row {...provider.droppableProps} ref={provider.innerRef}>
+                {columns.map((column: any, index: number) => (
+                  <Col key={column.id}>
+                    <PMCard
+                      name={column.title}
+                      tasks={column.tasks}
+                      id={+column.id}
+                      index={index}
+                      onClick={() => {}}
+                      onTitleChange={onTitleChange}
+                      deleteColumn={deleteColumn}
+                    />
+                  </Col>
+                ))}
+                {provider.placeholder}
+              </Row>
+            )}
+          </Droppable>
+          <Col>
+            <PMButton variant="primary" onClick={addColumn}>
+              Add Column
+            </PMButton>
           </Col>
-        ))}
-        <Col>
-          <PMButton variant="primary" onClick={addColumn}>
-            Add Column
-          </PMButton>
-        </Col>
-      </Row>
-      {/* <PMModal
-    show={show}
-    handleClose={handleClose}
-    handleClick={addColumn}
-    modalTitle={"Add Column"}
-  >
-    <Form>
-      <Row>
-        <PMTextField
-          as={Col}
-          controlId={"formGridEmail"}
-          label={"Email"}
-          placeholder={"Email"}
-          type={"email"}
-          value={""}
-          onChange={(e) => console.log(e.target.value)}
-          required
-        />
-        <PMTextField
-          as={Col}
-          controlId={"formGridPassword"}
-          label={"Password"}
-          placeholder={"Password"}
-          type={"password"}
-          value={""}
-          onChange={(e) => console.log(e.target.value)}
-          required
-        />
-      </Row>
-    </Form>
-  </PMModal> */}
+        </Row>
+      </DragDropContext>
     </Container>
   );
 };

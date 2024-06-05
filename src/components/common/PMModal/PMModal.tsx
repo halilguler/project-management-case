@@ -38,7 +38,7 @@ const PMModal = (props: PMModalProps) => {
         <PMButton variant="secondary" onClick={handleClose}>
           Close
         </PMButton>
-        <PMButton variant="primary" onClick={handleClick}>
+        <PMButton type={"submit"} variant="primary" onClick={handleClick}>
           Save
         </PMButton>
       </Modal.Footer>

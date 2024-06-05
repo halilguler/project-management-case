@@ -1,0 +1,24 @@
+.card_task {
+  display: flex;
+  width: 100%;
+  margin-block: 0.5rem;
+}
+.card_task_title {
+  font-size: 0.85rem !important;
+  font-weight: 500 !important;
+  color: #000 !important;
+  width: 100%;
+  margin-top: 0.75rem !important;
+}
+
+.card_task_header {
+  height: fit-content;
+  font-size: 0.85rem;
+  max-height: 30px;
+  background-color: gray !important;
+}
+
+.card_task_body {
+  min-height: 75px;
+  font-size: small;
+}

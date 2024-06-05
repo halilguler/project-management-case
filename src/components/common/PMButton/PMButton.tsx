@@ -23,12 +23,19 @@ type PMButtonProps = {
   children: string | React.ReactNode;
   onClick: () => void;
   className?: string;
+  type?: "button" | "submit" | "reset";
 };
 
 const PMButton = (props: PMButtonProps) => {
-  const { variant, children, onClick, className } = props;
+  const { variant, children, onClick, type, className } = props;
   return (
-    <Button variant={variant} onClick={onClick} className={className}>
+    <Button
+      variant={variant}
+      onClick={onClick}
+      className={className}
+      form={"taskForm"}
+      type={type || "button"}
+    >
       {children}
     </Button>
   );

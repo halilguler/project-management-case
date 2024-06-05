@@ -5,8 +5,12 @@ import {
   // persistStore
 } from "redux-persist";
 
+import columnSlice from "../features/ColumnSlice";
+import modalSlice from "../features/ModalSlice";
+
 const rootReducer = combineReducers({
-  // TODO: add reducers
+  columnSlice,
+  modalSlice,
 });
 
 const persistConfig = {

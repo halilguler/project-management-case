@@ -11,6 +11,7 @@ import {
   moveTaskInSameColumn,
   moveTaskToDifferentColumn,
 } from "../../features/ColumnSlice";
+import TaskForm from "../../components/Task/TaskForm/TaskForm";
 
 const Home = () => {
   const dispatch = useAppDispatch();
@@ -99,6 +100,7 @@ const Home = () => {
           )}
         </Droppable>
       </DragDropContext>
+      <TaskForm />
     </Container>
   );
 };

@@ -17,17 +17,20 @@ const Column = ({ tasks, column, index }: ColumnsType) => {
           <PMCardColumn
             id={column.id}
             column={column}
-            index={index}
             name={column.title}
             tasks={tasks}
             provider={provider}
-            onClick={() => {}}
           >
             <Droppable droppableId={column.id} type={DroppableEnum.TASK}>
               {(provider) => (
                 <div ref={provider.innerRef} {...provider.droppableProps}>
                   {tasks.map((task: TasksType, index: number) => (
-                    <Task key={task.id} task={task} index={index} />
+                    <Task
+                      key={task.id}
+                      columnId={column.id}
+                      task={task}
+                      index={index}
+                    />
                   ))}
                   {provider.placeholder}
                 </div>

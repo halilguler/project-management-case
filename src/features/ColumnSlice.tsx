@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { createSlice, current } from "@reduxjs/toolkit";
 
 interface Task {
   id: string;
@@ -27,11 +28,13 @@ interface ColumnState {
     };
     columnOrder: string[];
   };
+  taskFormState: Task;
 }
 
 const initialState: ColumnState = {
   editId: "",
   columnId: "",
+  taskFormState: [] as any,
   data: {
     tasks: {
       "task-1": {
@@ -179,11 +182,21 @@ const columnSlice = createSlice({
         },
       };
     },
+    getTask: (state, action) => {
+      const { taskId } = action.payload;
+      const task = current(state.data.tasks)[taskId];
+      state.taskFormState = task;
+    },
+    taskUpdated: (state, action) => {
+      const { task } = action.payload;
+      state.data.tasks[task.id] = task;
+    },
   },
 });
 
 export const {
   setEditId,
+  setColumnId,
   addColumnAndOrder,
   addTask,
   deleteTask,
@@ -193,6 +206,8 @@ export const {
   moveColumn,
   moveTaskInSameColumn,
   moveTaskToDifferentColumn,
+  taskUpdated,
+  getTask,
 } = columnSlice.actions;
 
 const reducer = columnSlice.reducer;

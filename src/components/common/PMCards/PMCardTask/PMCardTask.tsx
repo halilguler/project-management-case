@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Card from "react-bootstrap/Card";
 import React from "react";
-import { Row } from "react-bootstrap";
-import { MdDelete } from "react-icons/md";
-import PMButton from "../../PMButton/PMButton";
+import { Col, Row } from "react-bootstrap";
+import { MdDelete, MdEdit } from "react-icons/md";
 import "./style.css";
 import { useAppDispatch } from "../../../../utils/reduxHooks";
-import { deleteTask } from "../../../../features/ColumnSlice";
+import { deleteTask, getTask } from "../../../../features/ColumnSlice";
+import { setModal } from "../../../../features/ModalSlice";
 
 type PMCardTaskProps = {
   id: string;
@@ -22,31 +22,42 @@ const PMCardTask = (props: PMCardTaskProps) => {
   return (
     <Card className="d-flex card_task">
       <Card.Header
-        className={`d-flex align-items-center justify-content-between p-2 bg-white card_task_header `}
+        className={
+          "d-flex align-items-center justify-content-between p-2 bg-white card_task_header "
+        }
       >
         <Card.Title
-          className={`d-flex align-items-center justify-content-between card_task_title`}
+          className={
+            "d-flex align-items-center justify-content-between card_task_title mb-0"
+          }
           {...provider.dragHandleProps}
         >
           <Row>
             <span>{name}</span>
           </Row>
-          <Row>
-            {
-              <PMButton
-                variant="link"
-                onClick={() =>
-                  dispatch(
-                    deleteTask({
-                      columnId,
-                      taskId: id,
-                    })
-                  )
-                }
-              >
-                <MdDelete />
-              </PMButton>
-            }
+          <Row style={{ margin: 0, gap: "0.5rem" }}>
+            <Col
+              style={{ padding: "0" }}
+              onClick={() => {
+                dispatch(getTask({ taskId: id }));
+                dispatch(setModal());
+              }}
+            >
+              <MdEdit />
+            </Col>
+            <Col
+              style={{ padding: "0" }}
+              onClick={() =>
+                dispatch(
+                  deleteTask({
+                    columnId,
+                    taskId: id,
+                  })
+                )
+              }
+            >
+              <MdDelete />
+            </Col>
           </Row>
         </Card.Title>
       </Card.Header>

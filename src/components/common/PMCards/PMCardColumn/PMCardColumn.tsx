@@ -13,9 +13,9 @@ import { useAppDispatch, useAppSelector } from "../../../../utils/reduxHooks";
 import {
   deleteColumn,
   onTitleChange,
+  setColumnId,
   setEditId,
 } from "../../../../features/ColumnSlice";
-import TaskForm from "../../../Task/TaskForm/TaskForm";
 import { setModal } from "../../../../features/ModalSlice";
 
 type PMCardProps = {
@@ -118,13 +118,13 @@ const PMCardColumn = (props: PMCardProps) => {
         <PMButton
           variant="light"
           onClick={() => {
+            dispatch(setColumnId({ id }));
             dispatch(setModal());
           }}
         >
           <MdAddCircleOutline />
         </PMButton>
       </Card.Footer>
-      <TaskForm columnId={id} />
     </Card>
   );
 };

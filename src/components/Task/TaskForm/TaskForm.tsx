@@ -2,20 +2,21 @@
 import { Col, Form, Row } from "react-bootstrap";
 import PMTextField from "../../common/PMTextField/PMTextField";
 import PMSelect from "../../common/PMSelect/PMSelect";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TasksType } from "../../../types/types";
 import PMModal from "../../common/PMModal/PMModal";
 import { useAppDispatch, useAppSelector } from "../../../utils/reduxHooks";
 import { setModal } from "../../../features/ModalSlice";
-import { addTask } from "../../../features/ColumnSlice";
+import {
+  addTask,
+  setColumnId,
+  taskUpdated,
+} from "../../../features/ColumnSlice";
 
-type Props = {
-  columnId: string;
-};
-
-const TaskForm = (props: Props) => {
-  const { columnId } = props;
+const TaskForm = () => {
   const [validated, setValidated] = useState(false);
+  const { columnId } = useAppSelector((state) => state.columnSlice);
+  const { taskFormState } = useAppSelector((state) => state.columnSlice);
   const dispatch = useAppDispatch();
   const { isOpen } = useAppSelector((state) => state.modalSlice);
   const [taskInfo, setTaskInfo] = useState<TasksType>({
@@ -26,6 +27,18 @@ const TaskForm = (props: Props) => {
     taskFile: "",
     taskDate: "",
   });
+
+  useEffect(() => {
+    if (taskFormState.id === "") return;
+    setTaskInfo({
+      id: taskFormState.id,
+      content: taskFormState.content,
+      description: taskFormState.description,
+      taskType: taskFormState.taskType,
+      taskFile: taskFormState.taskFile,
+      taskDate: taskFormState.taskDate,
+    });
+  }, [taskFormState]);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name } = e.target;
@@ -44,18 +57,27 @@ const TaskForm = (props: Props) => {
     if (form.checkValidity() === false) {
       e.preventDefault();
       e.stopPropagation();
-    }
-    dispatch(addTask({ columnId, task: formValues }));
-    dispatch(setModal());
-    setTaskInfo({
-      id: "",
-      content: "",
-      description: "",
-      taskType: "",
-      taskFile: "",
-      taskDate: "",
-    });
+    } else {
+      if (taskInfo.id !== "") {
+        dispatch(taskUpdated({ task: formValues }));
+      } else {
+        dispatch(addTask({ columnId, task: formValues }));
+        dispatch(setColumnId(""));
+      }
+      dispatch(setModal());
 
+      setTaskInfo({
+        id: "",
+        content: "",
+        description: "",
+        taskType: "",
+        taskFile: "",
+        taskDate: "",
+      });
+      setValidated(false);
+
+      return;
+    }
     setValidated(true);
   };
 
@@ -73,7 +95,7 @@ const TaskForm = (props: Props) => {
           placeholder="Enter id"
           controlId="id"
           type="hidden"
-          value={columnId}
+          value={taskInfo?.id || ""}
           as={Col}
         />
         <Row>
@@ -133,23 +155,6 @@ const TaskForm = (props: Props) => {
               controlId="taskFile"
               type="text"
               value={taskInfo?.taskFile || ""}
-              as={Col}
-              onChange={(e: any) => {
-                handleOnChange(e);
-              }}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <PMTextField
-              label="Task Date"
-              name="taskDate"
-              className="mb-2"
-              placeholder="Enter task date"
-              controlId="taskDate"
-              type="text"
-              value={taskInfo?.taskDate || ""}
               as={Col}
               onChange={(e: any) => {
                 handleOnChange(e);

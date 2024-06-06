@@ -2,12 +2,7 @@
 import Card from "react-bootstrap/Card";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import {
-  MdBugReport,
-  MdDelete,
-  MdEdit,
-  MdTask,
-} from "react-icons/md";
+import { MdBugReport, MdDelete, MdEdit, MdTask } from "react-icons/md";
 import "./style.css";
 import { useAppDispatch } from "../../../../utils/reduxHooks";
 import { deleteTask, getTask } from "../../../../features/ColumnSlice";
@@ -48,7 +43,7 @@ const PMCardTask = (props: PMCardTaskProps) => {
                 dispatch(setModal(true));
               }}
             >
-              <MdEdit />
+              <MdEdit className="text-white" />
             </Col>
             <Col
               style={{ padding: "0" }}
@@ -61,7 +56,7 @@ const PMCardTask = (props: PMCardTaskProps) => {
                 )
               }
             >
-              <MdDelete />
+              <MdDelete className="text-white" />
             </Col>
           </Row>
         </Card.Title>

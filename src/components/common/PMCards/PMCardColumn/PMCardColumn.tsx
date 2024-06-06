@@ -43,7 +43,7 @@ const PMCardColumn = (props: PMCardProps) => {
   return (
     <Card style={{ width: "20rem" }}>
       <Card.Header
-        className={`p-2 bg-white`}
+        className={`p-2 bg-warning bg-gradient`}
         style={{
           maxHeight: "50px",
         }}
@@ -91,7 +91,7 @@ const PMCardColumn = (props: PMCardProps) => {
                 variant="link"
                 onClick={() => dispatch(deleteColumn(id))}
               >
-                <MdDelete />
+                <MdDelete className="text-danger" />
               </PMButton>
             )}
           </Row>
@@ -114,16 +114,17 @@ const PMCardColumn = (props: PMCardProps) => {
           </Card.Body>
         )}
       </Droppable>
-      <Card.Footer className="d-flex justify-content-center bg-white">
-        <PMButton
-          variant="light"
-          onClick={() => {
-            dispatch(setColumnId({ id }));
-            dispatch(setModal(true));
-          }}
-        >
-          <MdAddCircleOutline />
-        </PMButton>
+      <Card.Footer
+        className="d-flex justify-content-center bg-warning"
+        style={{
+          maxHeight: "30px",
+        }}
+        onClick={() => {
+          dispatch(setColumnId({ id }));
+          dispatch(setModal(true));
+        }}
+      >
+        <MdAddCircleOutline className="text-success" />
       </Card.Footer>
     </Card>
   );

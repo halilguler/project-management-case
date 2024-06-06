@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, current } from "@reduxjs/toolkit";
 
@@ -7,7 +8,6 @@ interface Task {
   description: string;
   taskType: string;
   taskFile: string;
-  taskDate: string;
 }
 
 interface Column {
@@ -34,50 +34,11 @@ interface ColumnState {
 const initialState: ColumnState = {
   editId: "",
   columnId: "",
-  taskFormState: [] as any,
+  taskFormState: {} as Task,
   data: {
-    tasks: {
-      "task-1": {
-        id: "task-1",
-        content: "Take out the garbage",
-        description: "Take out the garbage",
-        taskType: "Task",
-        taskFile: "File",
-        taskDate: "Date",
-      },
-      "task-2": {
-        id: "task-2",
-        content: "Watch my favorite show",
-        description: "Watch my favorite show",
-        taskType: "Task",
-        taskFile: "File",
-        taskDate: "Date",
-      },
-      "task-3": {
-        id: "task-3",
-        content: "Charge my phone",
-        description: "Charge my phone",
-        taskType: "Task",
-        taskFile: "File",
-        taskDate: "Date",
-      },
-      "task-4": {
-        id: "task-4",
-        content: "Cook dinner",
-        description: "Cook dinner",
-        taskType: "Task",
-        taskFile: "File",
-        taskDate: "Date",
-      },
-    },
-    columns: {
-      "column-1": {
-        id: "column-1",
-        title: "To do",
-        taskIds: ["task-1", "task-2", "task-3", "task-4"],
-      },
-    },
-    columnOrder: ["column-1"],
+    tasks: {},
+    columns: {},
+    columnOrder: [],
   },
 };
 
@@ -103,15 +64,8 @@ const columnSlice = createSlice({
       };
       const newColumnOrder = [...state.data.columnOrder, newColumnId];
 
-      state.data.columnOrder = [...state.data.columnOrder, newColumnId];
-      state.data = {
-        ...state.data,
-        columns: {
-          ...state.data.columns,
-          [newColumnId]: newColumn,
-        },
-        columnOrder: newColumnOrder,
-      };
+      state.data.columnOrder = newColumnOrder;
+      state.data.columns[newColumnId] = newColumn;
     },
 
     moveColumn: (state, action) => {
@@ -165,9 +119,8 @@ const columnSlice = createSlice({
         taskFile: task.taskFile,
         taskDate: task.taskDate,
       };
-      state.data.columns[columnId].taskIds.push(newTask.id);
+      state.data.columns[columnId]?.taskIds.push(newTask.id);
       state.data.tasks[newTask.id] = newTask;
-      state.data.tasks[task.id] = task;
     },
     deleteTask: (state, action) => {
       const { columnId, taskId } = action.payload;
@@ -191,6 +144,15 @@ const columnSlice = createSlice({
       const { task } = action.payload;
       state.data.tasks[task.id] = task;
     },
+    resetTaskForm: (state) => {
+      state.taskFormState = {
+        id: "",
+        content: "",
+        description: "",
+        taskType: "",
+        taskFile: "",
+      };
+    },
   },
 });
 
@@ -208,6 +170,7 @@ export const {
   moveTaskToDifferentColumn,
   taskUpdated,
   getTask,
+  resetTaskForm,
 } = columnSlice.actions;
 
 const reducer = columnSlice.reducer;

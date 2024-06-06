@@ -119,7 +119,7 @@ const PMCardColumn = (props: PMCardProps) => {
           variant="light"
           onClick={() => {
             dispatch(setColumnId({ id }));
-            dispatch(setModal());
+            dispatch(setModal(true));
           }}
         >
           <MdAddCircleOutline />

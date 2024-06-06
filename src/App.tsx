@@ -2,14 +2,17 @@ import React from "react";
 
 import PMHeader from "./components/common/PMHeader/PMHeader";
 import Home from "./pages/Home/Home";
-import { store } from "./store";
+import { persistor, store } from "./store";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 
 const App: React.FC = () => {
   return (
     <Provider store={store}>
-      <PMHeader />
-      <Home />
+      <PersistGate loading={null} persistor={persistor}>
+        <PMHeader />
+        <Home />
+      </PersistGate>
     </Provider>
   );
 };

@@ -8,7 +8,7 @@ type PMTextFieldProps = {
   placeholder?: string;
   type: string;
   name: string;
-  value: string;
+  value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   onBlur?: () => void;
@@ -16,6 +16,7 @@ type PMTextFieldProps = {
   required?: boolean;
   disabled?: boolean;
   readOnly?: boolean;
+  defaultValue?: string;
 };
 
 const PMTextField = (props: PMTextFieldProps) => {
@@ -31,6 +32,7 @@ const PMTextField = (props: PMTextFieldProps) => {
     onKeyDown,
     onBlur,
     className,
+    defaultValue,
     required,
     disabled,
     readOnly,
@@ -40,6 +42,7 @@ const PMTextField = (props: PMTextFieldProps) => {
       {label && <Form.Label className="form_label">{label}</Form.Label>}
       <Form.Control
         type={type}
+        defaultValue={defaultValue}
         name={name}
         placeholder={placeholder}
         value={value}

@@ -1,13 +1,21 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { persistStore } from "redux-persist";
-import persistedReducer from "./pages";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
-const store = configureStore({
+import rootReducer from "./pages/index";
+
+const persistConfig = {
+  key: "root",
+  storage,
+  whitelist: ["columnSlice"],
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+// Redux Toolkit ile birlikte bir store oluşturun
+export const store = configureStore({
   reducer: persistedReducer,
 });
 
-const persistor = persistStore(store);
-
-export { store, persistor };
-export type AppDispatch = typeof store.dispatch;
-export type RootState = ReturnType<typeof persistedReducer>;
+// Persisted store'u oluşturun
+export const persistor = persistStore(store);

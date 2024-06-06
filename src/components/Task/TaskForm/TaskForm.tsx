@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from "../../../utils/reduxHooks";
 import { setModal } from "../../../features/ModalSlice";
 import {
   addTask,
-  setColumnId,
+  resetTaskForm,
   taskUpdated,
 } from "../../../features/ColumnSlice";
 
@@ -24,32 +24,28 @@ const TaskForm = () => {
     content: "",
     description: "",
     taskType: "",
-    taskFile: "",
-    taskDate: "",
   });
 
   useEffect(() => {
-    if (taskFormState.id === "") return;
     setTaskInfo({
       id: taskFormState.id,
       content: taskFormState.content,
       description: taskFormState.description,
       taskType: taskFormState.taskType,
-      taskFile: taskFormState.taskFile,
-      taskDate: taskFormState.taskDate,
     });
   }, [taskFormState]);
 
-  const handleOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { name } = e.target;
-    const { value } = e.target;
+  const handleOnChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | any>
+  ) => {
+    const { name, value } = e.target;
     setTaskInfo({
       ...taskInfo,
       [name]: value,
     });
   };
 
-  const onSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const formData = new FormData(form);
@@ -58,24 +54,19 @@ const TaskForm = () => {
       e.preventDefault();
       e.stopPropagation();
     } else {
-      if (taskInfo.id !== "") {
+      if (taskInfo.id !== undefined && taskInfo.id !== "") {
         dispatch(taskUpdated({ task: formValues }));
       } else {
         dispatch(addTask({ columnId, task: formValues }));
-        dispatch(setColumnId(""));
       }
-      dispatch(setModal());
-
       setTaskInfo({
         id: "",
         content: "",
         description: "",
         taskType: "",
-        taskFile: "",
-        taskDate: "",
       });
       setValidated(false);
-
+      dispatch(setModal(false));
       return;
     }
     setValidated(true);
@@ -86,7 +77,10 @@ const TaskForm = () => {
       show={isOpen}
       modalTitle="Add Task"
       handleClick={() => {}}
-      handleClose={() => dispatch(setModal())}
+      handleClose={() => {
+        dispatch(resetTaskForm());
+        dispatch(setModal(false));
+      }}
     >
       <Form noValidate validated={validated} onSubmit={onSubmit} id="taskForm">
         <PMTextField
@@ -143,19 +137,6 @@ const TaskForm = () => {
                 { id: "1", value: "Task" },
                 { id: "2", value: "Bug" },
               ]}
-              onChange={(e: any) => {
-                handleOnChange(e);
-              }}
-            />
-            <PMTextField
-              label="Task File"
-              name="taskFile"
-              className="mb-2"
-              placeholder="Enter task file"
-              controlId="taskFile"
-              type="text"
-              value={taskInfo?.taskFile || ""}
-              as={Col}
               onChange={(e: any) => {
                 handleOnChange(e);
               }}

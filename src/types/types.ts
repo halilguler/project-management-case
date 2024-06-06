@@ -3,13 +3,16 @@ export enum DroppableEnum {
   TASK = "task",
 }
 
+export enum TaskTypeEnum {
+  TASK = "Task",
+  BUG = "Bug",
+}
+
 export type TasksType = {
   id?: string;
   content?: string;
   description?: string;
   taskType?: string;
-  taskFile?: string;
-  taskDate?: string;
 };
 
 export type ColumnType = {

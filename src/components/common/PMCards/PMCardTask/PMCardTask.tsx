@@ -2,29 +2,34 @@
 import Card from "react-bootstrap/Card";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import { MdDelete, MdEdit } from "react-icons/md";
+import {
+  MdBugReport,
+  MdDelete,
+  MdEdit,
+  MdTask,
+} from "react-icons/md";
 import "./style.css";
 import { useAppDispatch } from "../../../../utils/reduxHooks";
 import { deleteTask, getTask } from "../../../../features/ColumnSlice";
 import { setModal } from "../../../../features/ModalSlice";
+import { TaskTypeEnum, TasksType } from "../../../../types/types";
 
 type PMCardTaskProps = {
-  id: string;
-  name: string;
+  task: TasksType;
   columnId: string;
   children?: React.ReactNode;
   provider?: any;
 };
 
 const PMCardTask = (props: PMCardTaskProps) => {
-  const { id, columnId, name, provider, children } = props;
+  const { columnId, task, provider, children } = props;
   const dispatch = useAppDispatch();
   return (
     <Card className="d-flex card_task">
       <Card.Header
-        className={
-          "d-flex align-items-center justify-content-between p-2 bg-white card_task_header "
-        }
+        className={`d-flex align-items-center justify-content-between p-2 card_task_header ${
+          task.taskType === TaskTypeEnum.TASK ? "bg-primary" : "bg-danger"
+        }`}
       >
         <Card.Title
           className={
@@ -33,14 +38,14 @@ const PMCardTask = (props: PMCardTaskProps) => {
           {...provider.dragHandleProps}
         >
           <Row>
-            <span>{name}</span>
+            <span className="text-white">{task.content}</span>
           </Row>
           <Row style={{ margin: 0, gap: "0.5rem" }}>
             <Col
               style={{ padding: "0" }}
               onClick={() => {
-                dispatch(getTask({ taskId: id }));
-                dispatch(setModal());
+                dispatch(getTask({ taskId: task.id }));
+                dispatch(setModal(true));
               }}
             >
               <MdEdit />
@@ -51,7 +56,7 @@ const PMCardTask = (props: PMCardTaskProps) => {
                 dispatch(
                   deleteTask({
                     columnId,
-                    taskId: id,
+                    taskId: task.id,
                   })
                 )
               }
@@ -62,6 +67,17 @@ const PMCardTask = (props: PMCardTaskProps) => {
         </Card.Title>
       </Card.Header>
       <Card.Body className="card_task_body">{children}</Card.Body>
+      <Card.Footer className="card_task_footer">
+        <Row className="w-100 d-flex justify-content-start align-items-center m-0">
+          <Col>
+            {task?.taskType === TaskTypeEnum.TASK ? (
+              <MdTask className="text-primary" />
+            ) : (
+              <MdBugReport className="text-danger" />
+            )}
+          </Col>
+        </Row>
+      </Card.Footer>
     </Card>
   );
 };

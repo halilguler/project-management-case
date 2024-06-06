@@ -22,6 +22,7 @@ const PMSelect = (props: PMSelectProps) => {
       <Form.Select
         required={required}
         name={name}
+        defaultValue={value}
         value={value}
         onChange={onChange}
       >

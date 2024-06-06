@@ -21,13 +21,8 @@ const Task = ({
           {...provided.dragHandleProps}
           {...provided.draggableProps}
         >
-          <PMCardTask
-            columnId={columnId}
-            id={task.id || ""}
-            name={task.content || ""}
-            provider={provided}
-          >
-            {task.description}
+          <PMCardTask columnId={columnId} task={task} provider={provided}>
+            {task?.description}
           </PMCardTask>
         </Container>
       )}

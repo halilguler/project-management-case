@@ -1,24 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Col, Form, Row } from "react-bootstrap";
-import PMTextField from "../../common/PMTextField/PMTextField";
-import PMSelect from "../../common/PMSelect/PMSelect";
+import PMTextField from "../../common/PMTextField";
+import PMSelect from "../../common/PMSelect";
 import { useEffect, useState } from "react";
 import { TasksType } from "../../../types/types";
-import PMModal from "../../common/PMModal/PMModal";
+import PMModal from "../../common/PMModal";
 import { useAppDispatch, useAppSelector } from "../../../utils/reduxHooks";
-import { setModal } from "../../../features/ModalSlice";
+import { setModal } from "../../../features/modalSlice";
 import {
   addTask,
   resetTaskForm,
   taskUpdated,
-} from "../../../features/ColumnSlice";
+} from "../../../features/homeSlice";
 
 const TaskForm = () => {
   const [validated, setValidated] = useState(false);
-  const { columnId } = useAppSelector((state) => state.columnSlice);
-  const { taskFormState } = useAppSelector((state) => state.columnSlice);
-  const dispatch = useAppDispatch();
+  const { columnId } = useAppSelector((state) => state.homeSlice);
+  const { taskFormState } = useAppSelector((state) => state.homeSlice);
   const { isOpen } = useAppSelector((state) => state.modalSlice);
+  const dispatch = useAppDispatch();
   const [taskInfo, setTaskInfo] = useState<TasksType>({
     id: "",
     content: "",

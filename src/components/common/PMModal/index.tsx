@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Modal from "react-bootstrap/Modal";
-import PMButton from "../PMButton/PMButton";
+import PMButton from "../PMButton";
 
 type PMModalProps = {
   size?: "sm" | "lg" | "xl";

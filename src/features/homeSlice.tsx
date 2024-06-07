@@ -1,5 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, current } from "@reduxjs/toolkit";
 
 interface Task {
@@ -42,8 +40,8 @@ const initialState: ColumnState = {
   },
 };
 
-const columnSlice = createSlice({
-  name: "column",
+const homeSlice = createSlice({
+  name: "homeSlice",
   initialState,
   reducers: {
     setData: (state, action) => {
@@ -171,7 +169,7 @@ export const {
   taskUpdated,
   getTask,
   resetTaskForm,
-} = columnSlice.actions;
+} = homeSlice.actions;
 
-const reducer = columnSlice.reducer;
+const reducer = homeSlice.reducer;
 export default reducer;

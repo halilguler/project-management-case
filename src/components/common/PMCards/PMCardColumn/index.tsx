@@ -5,19 +5,19 @@ import { Row } from "react-bootstrap";
 import { MdAddCircleOutline } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { Droppable } from "react-beautiful-dnd";
-import PMTextField from "../../PMTextField/PMTextField";
-import PMButton from "../../PMButton/PMButton";
+import PMTextField from "../../PMTextField";
+import PMButton from "../../PMButton";
 import { ColumnType, DroppableEnum, TasksType } from "../../../../types/types";
-import Task from "../../../Task/Task";
+import Task from "../../../Task";
 import { useAppDispatch, useAppSelector } from "../../../../utils/reduxHooks";
 import {
   deleteColumn,
   onTitleChange,
   setColumnId,
   setEditId,
-} from "../../../../features/ColumnSlice";
-import { setModal } from "../../../../features/ModalSlice";
+} from "../../../../features/homeSlice";
 import "./style.css";
+import { setModal } from "../../../../features/modalSlice";
 
 type PMCardProps = {
   id: string;
@@ -31,7 +31,7 @@ type PMCardProps = {
 const PMCardColumn = (props: PMCardProps) => {
   const { id, column, name, tasks, provider } = props;
   const dispatch = useAppDispatch();
-  const { editId } = useAppSelector((state) => state.columnSlice);
+  const { editId } = useAppSelector((state) => state.homeSlice);
 
   const removeEditId = () => {
     dispatch(
@@ -43,9 +43,7 @@ const PMCardColumn = (props: PMCardProps) => {
 
   return (
     <Card className="card_main">
-      <Card.Header
-        className={`p-2 bg-warning bg-gradient card_column_header`}
-      >
+      <Card.Header className={`p-2 bg-warning bg-gradient card_column_header`}>
         <Card.Title
           className={`d-flex align-items-center justify-content-between h6 `}
           {...provider.dragHandleProps}

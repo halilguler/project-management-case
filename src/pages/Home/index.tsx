@@ -1,31 +1,29 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Container } from "react-bootstrap";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import PMButton from "../../components/common/PMButton/PMButton";
+import PMButton from "../../components/common/PMButton";
 import { DroppableEnum } from "../../types/types";
-import Column from "../../components/Column/Column";
+import Column from "../../components/Column";
 import { useAppDispatch, useAppSelector } from "../../utils/reduxHooks";
 import {
   addColumnAndOrder,
   moveColumn,
   moveTaskInSameColumn,
   moveTaskToDifferentColumn,
-} from "../../features/ColumnSlice";
-import TaskForm from "../../components/Task/TaskForm/TaskForm";
+} from "../../features/homeSlice";
+import TaskForm from "../../components/Task/TaskForm";
 
 const Home = () => {
   const dispatch = useAppDispatch();
-  const { data } = useAppSelector((state) => state.columnSlice);
+  const { data } = useAppSelector((state) => state.homeSlice);
 
   const onDragEnd = (
-    result:
-      | {
-          destination: any;
-          source: any;
-          draggableId: string;
-          type: string;
-        }
-      | { destination: null; source: any; draggableId: string; type: string }
+    result: {
+      destination: any;
+      source: any;
+      draggableId: string;
+      type: string;
+    }
   ) => {
     const { destination, source, draggableId, type } = result;
     if (!destination) return;

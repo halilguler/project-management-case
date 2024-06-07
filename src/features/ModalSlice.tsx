@@ -9,7 +9,7 @@ const initialState: ModalState = {
 };
 
 const modalSlice = createSlice({
-  name: "modal",
+  name: "modalSlice",
   initialState,
   reducers: {
     setModal: (state, action) => {

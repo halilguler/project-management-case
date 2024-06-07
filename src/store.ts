@@ -7,15 +7,16 @@ import rootReducer from "./pages/index";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["columnSlice"],
+  whitelist: ["homeSlice"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-// Redux Toolkit ile birlikte bir store oluşturun
 export const store = configureStore({
   reducer: persistedReducer,
 });
 
-// Persisted store'u oluşturun
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
 export const persistor = persistStore(store);

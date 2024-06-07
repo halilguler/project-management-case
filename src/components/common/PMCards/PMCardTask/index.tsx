@@ -1,19 +1,19 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import Card from "react-bootstrap/Card";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { MdBugReport, MdDelete, MdEdit, MdTask } from "react-icons/md";
 import "./style.css";
 import { useAppDispatch } from "../../../../utils/reduxHooks";
-import { deleteTask, getTask } from "../../../../features/ColumnSlice";
-import { setModal } from "../../../../features/ModalSlice";
+import { deleteTask, getTask } from "../../../../features/homeSlice";
+import { setModal } from "../../../../features/modalSlice";
 import { TaskTypeEnum, TasksType } from "../../../../types/types";
+import { DraggableProvided } from "react-beautiful-dnd";
 
 type PMCardTaskProps = {
   task: TasksType;
   columnId: string;
   children?: React.ReactNode;
-  provider?: any;
+  provider?: DraggableProvided;
 };
 
 const PMCardTask = (props: PMCardTaskProps) => {
@@ -30,7 +30,7 @@ const PMCardTask = (props: PMCardTaskProps) => {
           className={
             "d-flex align-items-center justify-content-between card_task_title mb-0"
           }
-          {...provider.dragHandleProps}
+          {...provider?.dragHandleProps}
         >
           <Row>
             <span className="text-white">{task.content}</span>

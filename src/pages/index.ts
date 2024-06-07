@@ -1,27 +1,11 @@
 import { combineReducers } from "@reduxjs/toolkit";
-// import storage from "redux-persist/lib/storage";
-// import {
-//   persistReducer,
-//   // persistStore
-// } from "redux-persist";
 
-import columnSlice from "../features/ColumnSlice";
-import modalSlice from "../features/ModalSlice";
+import homeSlice from "../features/homeSlice";
+import modalSlice from "../features/modalSlice";
 
 const rootReducer = combineReducers({
-  columnSlice,
+  homeSlice,
   modalSlice,
 });
 
-// const persistConfig = {
-//   key: "root",
-//   storage,
-//   whitelist: [],
-//   blacklist: [],
-// };
-
-// const persistedReducer = persistReducer(persistConfig, rootReducer);
-
 export default rootReducer;
-
-// export default persistedReducer;

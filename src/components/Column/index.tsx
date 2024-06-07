@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { Droppable, Draggable } from "react-beautiful-dnd";
-import Task from "../Task/Task";
+import Task from "../Task";
 import { ColumnsType, DroppableEnum, TasksType } from "../../types/types";
-import PMCardColumn from "../common/PMCards/PMCardColumn/PMCardColumn";
+import PMCardColumn from "../common/PMCards/PMCardColumn";
 
 const Column = ({ tasks, column, index }: ColumnsType) => {
   return (

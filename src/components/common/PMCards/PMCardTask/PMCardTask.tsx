@@ -35,9 +35,9 @@ const PMCardTask = (props: PMCardTaskProps) => {
           <Row>
             <span className="text-white">{task.content}</span>
           </Row>
-          <Row style={{ margin: 0, gap: "0.5rem" }}>
+          <Row className="m-0 gap-2">
             <Col
-              style={{ padding: "0" }}
+              className="p-0"
               onClick={() => {
                 dispatch(getTask({ taskId: task.id }));
                 dispatch(setModal(true));
@@ -46,7 +46,7 @@ const PMCardTask = (props: PMCardTaskProps) => {
               <MdEdit className="text-white" />
             </Col>
             <Col
-              style={{ padding: "0" }}
+              className="p-0"
               onClick={() =>
                 dispatch(
                   deleteTask({

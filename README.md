@@ -1,30 +1,53 @@
-# React + TypeScript + Vite
+# Project Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a comprehensive project management system built with Vite. It includes components for managing tasks and projects, and it leverages a number of libraries and tools for efficient development.
 
-Currently, two official plugins are available:
+## Table of Contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Introduction](#introduction)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
-## Expanding the ESLint configuration
+## Introduction
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+The Project Management System is designed to help users manage tasks and projects efficiently. It includes various components such as modals, buttons, cards, text fields, and select inputs to provide a rich user interface and seamless user experience.
 
-- Configure the top-level `parserOptions` property like this:
+## Features
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+- Task and project management
+- Customizable components
+  - Modals
+  - Buttons
+  - Cards
+  - Text fields
+  - Select inputs
+- Drag and drop functionality for tasks
+- State management with Redux Toolkit and persistence with Redux Persist
+
+## Technologies Used
+
+- [Vite](https://vitejs.dev/) - A fast build tool for modern web projects
+- [Bootstrap](https://getbootstrap.com/) - For styling and responsive design
+- [React Bootstrap](https://react-bootstrap.github.io/) - Bootstrap components built with React
+- [React Beautiful DnD](https://github.com/atlassian/react-beautiful-dnd) - Drag and drop functionality
+- [Redux Toolkit](https://redux-toolkit.js.org/) - State management
+- [Redux Persist](https://github.com/rt2zz/redux-persist) - Persisting Redux state
+
+## Installation
+
+To get started with the project, clone the repository and install the dependencies:
+
+```sh
+git clone https://github.com/halilguler/project-management-case.git
+cd project-management-case
+yarn
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+```sh
+yarn dev
+```
+

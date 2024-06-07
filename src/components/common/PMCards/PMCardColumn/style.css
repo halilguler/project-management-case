@@ -1,0 +1,11 @@
+.card_main {
+  width: 20rem !important;
+}
+
+.card_column_header {
+  max-height: 50px !important;
+}
+
+.card_column_footer {
+  max-height: 30px !important;
+}

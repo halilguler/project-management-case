@@ -17,6 +17,7 @@ import {
   setEditId,
 } from "../../../../features/ColumnSlice";
 import { setModal } from "../../../../features/ModalSlice";
+import "./style.css";
 
 type PMCardProps = {
   id: string;
@@ -41,12 +42,9 @@ const PMCardColumn = (props: PMCardProps) => {
   };
 
   return (
-    <Card style={{ width: "20rem" }}>
+    <Card className="card_main">
       <Card.Header
-        className={`p-2 bg-warning bg-gradient`}
-        style={{
-          maxHeight: "50px",
-        }}
+        className={`p-2 bg-warning bg-gradient card_column_header`}
       >
         <Card.Title
           className={`d-flex align-items-center justify-content-between h6 `}
@@ -115,10 +113,7 @@ const PMCardColumn = (props: PMCardProps) => {
         )}
       </Droppable>
       <Card.Footer
-        className="d-flex justify-content-center bg-warning"
-        style={{
-          maxHeight: "30px",
-        }}
+        className="d-flex justify-content-center bg-warning card_column_footer"
         onClick={() => {
           dispatch(setColumnId({ id }));
           dispatch(setModal(true));

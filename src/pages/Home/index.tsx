@@ -1,6 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Container } from "react-bootstrap";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import {
+  DragDropContext,
+  Droppable,
+  DropResult
+} from "react-beautiful-dnd";
 import PMButton from "../../components/common/PMButton";
 import { DroppableEnum } from "../../types/types";
 import Column from "../../components/Column";
@@ -17,14 +20,7 @@ const Home = () => {
   const dispatch = useAppDispatch();
   const { data } = useAppSelector((state) => state.homeSlice);
 
-  const onDragEnd = (
-    result: {
-      destination: any;
-      source: any;
-      draggableId: string;
-      type: string;
-    }
-  ) => {
+  const onDragEnd = (result: DropResult) => {
     const { destination, source, draggableId, type } = result;
     if (!destination) return;
 
@@ -71,23 +67,20 @@ const Home = () => {
                 width: "max-content",
               }}
             >
-              {data.columnOrder.map((columnId: string | number, index: any) => {
-                const column = data.columns[columnId];
-                const tasks = column.taskIds.map(
-                  (taskId: string | number) => data.tasks[taskId]
-                );
+              {data.columnOrder.map(
+                (columnId: string | number, index: number) => {
+                  const column = data.columns[columnId];
+                  const tasks = column.taskIds.map(
+                    (taskId: string | number) => data.tasks[taskId]
+                  );
 
-                return (
-                  <div className="d-flex flex-column">
-                    <Column
-                      index={index}
-                      key={column.id}
-                      column={column}
-                      tasks={tasks}
-                    />
-                  </div>
-                );
-              })}
+                  return (
+                    <div className="d-flex flex-column" key={column.id}>
+                      <Column index={index} column={column} tasks={tasks} />
+                    </div>
+                  );
+                }
+              )}
               {provided.placeholder}
               <div className="d-flex align-items-start">
                 <PMButton variant="primary" onClick={addColumnOrder}>

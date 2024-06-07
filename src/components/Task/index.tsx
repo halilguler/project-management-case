@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Draggable } from "react-beautiful-dnd";
 import { Container } from "react-bootstrap";
 import PMCardTask from "../common/PMCards/PMCardTask";

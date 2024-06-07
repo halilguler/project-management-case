@@ -1,14 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import Card from "react-bootstrap/Card";
 import React from "react";
 import { Row } from "react-bootstrap";
 import { MdAddCircleOutline } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
-import { Droppable } from "react-beautiful-dnd";
+import { DraggableProvided, Droppable } from "react-beautiful-dnd";
 import PMTextField from "../../PMTextField";
 import PMButton from "../../PMButton";
 import { ColumnType, DroppableEnum, TasksType } from "../../../../types/types";
-import Task from "../../../Task";
 import { useAppDispatch, useAppSelector } from "../../../../utils/reduxHooks";
 import {
   deleteColumn,
@@ -18,6 +16,7 @@ import {
 } from "../../../../features/homeSlice";
 import "./style.css";
 import { setModal } from "../../../../features/modalSlice";
+import Task from "../../../Task";
 
 type PMCardProps = {
   id: string;
@@ -25,7 +24,7 @@ type PMCardProps = {
   tasks: TasksType[];
   name: string;
   children?: React.ReactNode;
-  provider?: any;
+  provider?: DraggableProvided;
 };
 
 const PMCardColumn = (props: PMCardProps) => {
@@ -46,7 +45,7 @@ const PMCardColumn = (props: PMCardProps) => {
       <Card.Header className={`p-2 bg-warning bg-gradient card_column_header`}>
         <Card.Title
           className={`d-flex align-items-center justify-content-between h6 `}
-          {...provider.dragHandleProps}
+          {...provider?.dragHandleProps}
         >
           <Row className="w-100">
             {editId === "" || editId !== id.toString() ? (
@@ -97,7 +96,7 @@ const PMCardColumn = (props: PMCardProps) => {
         {(provider) => (
           <Card.Body ref={provider.innerRef} {...provider.droppableProps}>
             <div>
-              {tasks.map((task: any, index: any) => (
+              {tasks.map((task: TasksType, index: number) => (
                 <Task
                   columnId={column.id}
                   key={task.id}

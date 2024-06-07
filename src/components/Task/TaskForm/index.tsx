@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Col, Form, Row } from "react-bootstrap";
 import PMTextField from "../../common/PMTextField";
 import PMSelect from "../../common/PMSelect";
@@ -36,7 +35,7 @@ const TaskForm = () => {
   }, [taskFormState]);
 
   const handleOnChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | any>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setTaskInfo({
@@ -104,7 +103,7 @@ const TaskForm = () => {
               required={true}
               value={taskInfo?.content || ""}
               as={Col}
-              onChange={(e: any) => {
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 handleOnChange(e);
               }}
             />
@@ -118,7 +117,7 @@ const TaskForm = () => {
               required={true}
               value={taskInfo?.description || ""}
               as={Col}
-              onChange={(e: any) => {
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 handleOnChange(e);
               }}
             />
@@ -137,7 +136,7 @@ const TaskForm = () => {
                 { id: "1", value: "Task" },
                 { id: "2", value: "Bug" },
               ]}
-              onChange={(e: any) => {
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                 handleOnChange(e);
               }}
             />

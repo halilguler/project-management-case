@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import Modal from "react-bootstrap/Modal";
 import PMButton from "../PMButton";
 

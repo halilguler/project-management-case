@@ -1,11 +1,10 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 
-interface Task {
+export interface Task {
   id: string;
   content: string;
   description: string;
   taskType: string;
-  taskFile: string;
 }
 
 interface Column {
@@ -148,7 +147,6 @@ const homeSlice = createSlice({
         content: "",
         description: "",
         taskType: "",
-        taskFile: "",
       };
     },
   },
